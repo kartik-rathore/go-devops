@@ -40,15 +40,54 @@
         a:hover {
             text-decoration: underline;
         }
+        .greeting-form {
+            margin-top: 20px;
+        }
+        .greeting-form input {
+            padding: 10px;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+        .greeting-form button {
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .greeting-form button:hover {
+            background-color: #0056b3;
+        }
     </style>
+    <script>
+        function updateGreeting(event) {
+            event.preventDefault();
+            const name = document.getElementById('nameInput').value;
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/greet', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    document.getElementById('greeting').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send('name=' + encodeURIComponent(name));
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Hi, my name is Kartik Rathore</h1>
+        <h1 id="greeting">Hi, my name is Kartik Rathore</h1>
         <div class="links">
             <p>Here is my LinkedIn profile: <a href="https://www.linkedin.com/in/kartik-rathore" target="_blank">Kartik Rathore</a></p>
             <p>Here is my GitHub profile: <a href="https://github.com/kartik-rathore" target="_blank">Kartik Rathore GitHub</a></p>
         </div>
+        <form class="greeting-form" onsubmit="updateGreeting(event)">
+            <input type="text" id="nameInput" placeholder="Enter your name" required>
+            <button type="submit">Greet Me</button>
+        </form>
     </div>
 </body>
 </html>
