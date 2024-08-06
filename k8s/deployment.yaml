@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: greeting-app
-          image: 123456789012.dkr.ecr.your-region.amazonaws.com/greeting-app:latest
+          image: imrathore/greeting-app:v1
           ports:
             - containerPort: 8080
